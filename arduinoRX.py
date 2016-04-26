@@ -27,7 +27,7 @@ customerId = "12345678"
 RPIhostname = "node-R2"
 RPIip = "192.168.0.103"
 
-client.connect("iot.eclipse.org", 1883, 60)
+#client.connect("iot.eclipse.org", 1883, 60)
 
 #uncoment next line to activate user authentication
 #client.username_pw_set("azhang","*********")
@@ -57,9 +57,9 @@ while (True):
         sensorName = mylist[1]
         sensorMetric = mylist[2]
         sensorUnit = mylist[3]
-        sensorTimeStamp = int(mylist[4])*1000
+        sensorTimeStamp = int(mylist[4])*1000000
 	if sensorTimeStamp == 0:
-		sensorTimeStamp = int(time_stamp)*1000
+		sensorTimeStamp = int(time_stamp)*1000000000
 	  
         sensorValue = mylist[5]
 	if mylist[6] == 'M':
@@ -70,9 +70,9 @@ while (True):
 
 	msg ='%s,arduino.name=%s,rpi.hostname=%s,rpi.datatype=%s,sensor.unit=%s,sensor.name=%s value=%s %s\n' % (sensorMetric,device,RPIhostname,dataType,sensorUnit,sensorName,sensorValue,sensorTimeStamp)
         
-	print msg
+#	print msg
         client.publish("javier/board1", msg)
-        time.sleep(0.1)
+#        time.sleep(0.1)
 	if dataType == "EVENT":
 		client.publish("javier/board2", msg)
         	time.sleep(0.1)
